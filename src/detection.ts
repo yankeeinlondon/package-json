@@ -1,3 +1,7 @@
+import { readFileSync } from "node:fs";
+import { homedir } from "node:os";
+import path from "node:path";
+import simpleGit, { SimpleGit } from "simple-git";
 
 /**
  * Attempts to detect the current user's email address by:
@@ -48,9 +52,9 @@ export async function detectUserEmail(): Promise<string | undefined> {
 
   // 4. Parse ~/.gitconfig directly
   try {
-    const home = os.homedir();
+    const home = homedir();
     const configPath = path.join(home, '.gitconfig');
-    const content = fs.readFileSync(configPath, 'utf8');
+    const content = readFileSync(configPath, 'utf8');
     // look for:
     // [user]
     //     email = foo@bar.com
