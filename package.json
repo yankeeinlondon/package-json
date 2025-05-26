@@ -14,11 +14,15 @@
     },
     "scripts": {
         "test": "vitest",
-        "build": "tsdown src/index.ts --format=esm,cjs --dts"
+        "build": "tsdown src/index.ts --format=esm,cjs --dts",
+        "lint": "eslint src --fix",
+        "watch": "tsdown src/index.ts --format=esm,cjs --dts --watch",
+        "release": "bumpp"
     },
     "keywords": [
         "parse",
-        "package.json"
+        "package.json",
+        "initialize"
     ],
     "author": "Ken Snyder <ken@ken.net>",
     "license": "MIT",

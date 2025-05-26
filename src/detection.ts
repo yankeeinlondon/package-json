@@ -1,7 +1,8 @@
 import { readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";
-import simpleGit, { SimpleGit } from "simple-git";
+import process from "node:process";
+import simpleGit from "simple-git";
 
 /**
  * Attempts to detect the current user's email address by:
@@ -15,34 +16,36 @@ import simpleGit, { SimpleGit } from "simple-git";
 export async function detectUserEmail(): Promise<string | undefined> {
   // 1. Try global Git config
   try {
-    const git: SimpleGit = simpleGit();
-    const raw = await git.raw(['config', '--global', 'user.email']);
+    const git = simpleGit();
+    const raw = await git.raw(["config", "--global", "user.email"]);
     const email = raw.trim();
     if (email) {
       return email;
     }
-  } catch {
+  }
+  catch {
     // ignore
   }
 
   // 2. Try local Git config (in case you're in a repo with per-repo override)
   try {
-    const git: SimpleGit = simpleGit(process.cwd());
-    const raw = await git.raw(['config', 'user.email']);
+    const git = simpleGit(process.cwd());
+    const raw = await git.raw(["config", "user.email"]);
     const email = raw.trim();
     if (email) {
       return email;
     }
-  } catch {
+  }
+  catch {
     // ignore
   }
 
   // 3. Environment variables commonly used for email
   for (const varName of [
-    'GIT_AUTHOR_EMAIL',
-    'GIT_COMMITTER_EMAIL',
-    'EMAIL',
-    'USER_EMAIL',
+    "GIT_AUTHOR_EMAIL",
+    "GIT_COMMITTER_EMAIL",
+    "EMAIL",
+    "USER_EMAIL",
   ]) {
     const val = process.env[varName];
     if (val) {
@@ -53,16 +56,17 @@ export async function detectUserEmail(): Promise<string | undefined> {
   // 4. Parse ~/.gitconfig directly
   try {
     const home = homedir();
-    const configPath = path.join(home, '.gitconfig');
-    const content = readFileSync(configPath, 'utf8');
+    const configPath = path.join(home, ".gitconfig");
+    const content = readFileSync(configPath, "utf8");
     // look for:
     // [user]
     //     email = foo@bar.com
-    const match = content.match(/\[user\][^\[]*email\s*=\s*(.+)/i);
+    const match = content.match(/\[user\][^[]*email\s*=\s*(.+)/i);
     if (match) {
       return match[1].trim();
     }
-  } catch {
+  }
+  catch {
     // ignore
   }
 

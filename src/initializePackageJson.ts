@@ -1,14 +1,10 @@
-import { PackageJson } from "./types";
+import type { PackageJson } from "./types";
 
 export function initializePackageJson(
-    options: PackageJson = {}
+  options: PackageJson = {},
 ) {
-
-    
-
-    return {
-        type: "module",
-        ...options
-    } satisfies PackageJson
+  return {
+    type: "module",
+    ...options,
+  } satisfies PackageJson;
 }
-
