@@ -9,7 +9,6 @@ import {
 import { InvalidFile, WrongType } from "./error.js";
 import { isPackageJson } from "./isPackageJson.js";
 
-
 /**
  * Parses the `package.json` in the passed in folder.
  *
