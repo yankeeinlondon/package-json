@@ -1,6 +1,6 @@
 {
     "name": "@yankeeinlondon/package-json",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.2",
     "description": "identifies, types, loads, and pre-fills various package files",
     "main": "dist/index.cjs",
     "module": "dist/index.js",
