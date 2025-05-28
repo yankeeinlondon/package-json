@@ -6,8 +6,9 @@ import {
   stripTrailing,
 
 } from "inferred-types";
-import { InvalidFile, WrongType } from "./error";
-import { isPackageJson } from "./isPackageJson";
+import { InvalidFile, WrongType } from "./error.js";
+import { isPackageJson } from "./isPackageJson.js";
+
 
 /**
  * Parses the `package.json` in the passed in folder.
